@@ -26,7 +26,7 @@ public class UserControllerTest {
     }
 
 
-    @Secured({ROLE_ADMIN})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/listUser")
     public ResponseEntity listUser(){
       //  log.info(String.format("received request to list user %s", SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
@@ -45,7 +45,7 @@ public class UserControllerTest {
                 .body(userService.save(userDto));
     }
 
-    @Secured({ROLE_ADMIN, ROLE_TEACHER})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/getUser/{id}")
     public ResponseEntity getUser(@PathVariable Long id){
        // log.info(String.format("received request to getUser user %s", SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
@@ -54,7 +54,7 @@ public class UserControllerTest {
                 .body(userService.findUserById(id));
     }
 
-    @Secured({ROLE_ADMIN})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/deleteUser/{id}")
     public void delete(@PathVariable(value = "id") Long id){
         userService.deleteById(id);
